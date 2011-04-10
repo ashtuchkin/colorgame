@@ -1,0 +1,6 @@
+[submodule "node_modules/connect"]
+	path = node_modules/connect
+	url = git://github.com/senchalabs/connect.git
+[submodule "node_modules/express"]
+	path = node_modules/express
+	url = git://github.com/visionmedia/express.git
