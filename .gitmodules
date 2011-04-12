@@ -28,3 +28,9 @@
 [submodule "node_modules/oauth"]
 	path = node_modules/oauth
 	url = git://github.com/ciaranj/node-oauth.git
+[submodule "node_modules/cookie-sessions"]
+	path = node_modules/cookie-sessions
+	url = git://github.com/caolan/cookie-sessions.git
+[submodule "node_modules/facebook-js"]
+	path = node_modules/facebook-js
+	url = git://github.com/masylum/facebook-js.git

@@ -1,0 +1,84 @@
+body,
+html {
+/*    margin:0;
+    padding:0;
+*/    color:#000;
+    background:#a7a09a;
+}
+
+table {
+}
+
+h1 {
+    padding:10px;
+}
+
+#wrap {
+    width:960px; 
+    margin:0px auto; 
+    background: lightgray;
+}
+
+#leftcolumn {
+    float: left;
+    width:200px; 
+    height:760px;
+    background: lightblue;
+}
+
+#authbox {
+    height:100px; 
+    background: lightgreen;
+}
+
+#gamestate {
+    background: lightgray;
+}
+
+#clients .wannaplay {
+    background: yellow;
+}
+
+#clients .playing {
+    background: red;
+}
+
+#board {
+    float: left;
+    width: 760px;
+    height: 760px;
+    background: white;
+}
+
+#board table {
+    width: 100%;
+    height: 100%;
+    margin:0;
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.color0 {
+    background: #00F;
+}
+.color1 {
+    background: #0F0;
+}
+.color2 {
+    background: #F00;
+}
+.color3 {
+    background: #0FF;
+}
+.color4 {
+    background: #F0F;
+}
+.color5 {
+    background: #FF0;
+}
+
+.highlight {
+    background: #FFF;
+}
+
