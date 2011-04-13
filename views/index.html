@@ -7,33 +7,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var userid = <%=userid %>;
+        var userid   = <%=userid %>;
+        var username = "<%=username %>";
+        var auth_url = "<%=auth_url %>";
     </script>
+    <script src="/jquery.humanmsg.js"></script>
     <script src="/board.js"></script>
     <script src="/main.js"></script>
 </head>
 <body>
     <div id="wrap">
-        <div id="leftcolumn">
-            <h1>Color game</h1>
-            <div id="authbox">
-                <% if (userid === false) { %>
-                <div class="fb_button" id="fb-login" style="float:left; background-position: left -188px">
-                    <a href="<%=auth_url %>" class="fb_button_medium">
-                        <span id="fb_login_text" class="fb_button_text">Sign in with Facebook</span>
-                    </a>
-                </div>
-                <% } else { %>
-                <img src="https://graph.facebook.com/<%=userid %>/picture"/>
-                <%=username %><br/>
-                <a href="/logout">Logout</a>
-                <% } %>
-            </div>
-            <div id="gamestate"></div>
-            <div id="clients"></div>
-        </div>
-        <div id="board">
-        </div>
+        <div id="leftcolumn"></div>
+        <div id="board"></div>
     </div>
 </body>
 </html>

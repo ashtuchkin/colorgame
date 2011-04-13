@@ -1,47 +1,133 @@
-body,
-html {
-/*    margin:0;
-    padding:0;
-*/    color:#000;
-    background:#a7a09a;
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
 }
-
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
 table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-h1 {
-    padding:10px;
+/* -- Generic style links -- */
+
+a:link, a:visited { color: black; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* -- Our styles -- */
+
+
+body {
+    margin: 7px;
+    background:#a7a09a;
+    font: 16px Arial, Helvetica, sans-serif;
 }
 
 #wrap {
-    width:960px; 
-    margin:0px auto; 
-    background: lightgray;
+    width: 960px; 
+    margin: 0px auto; 
 }
 
 #leftcolumn {
     float: left;
-    width:200px; 
-    height:760px;
-    background: lightblue;
+    width: 200px; 
+    height: 760px;
+    background: lightgray;
+    overflow: auto;
 }
 
-#authbox {
-    height:100px; 
-    background: lightgreen;
+#header {
+    height: 30px;
+    font-size: 160%;
+    padding: 10px 10px 10px 30px;
+/*    background: lightblue;
+*/
+}
+
+.auth {
+    padding: 10px;
+}
+
+.logout {
+    padding: 0 10px;
+    text-align: right;
 }
 
 #gamestate {
-    background: lightgray;
+    font-size: 120%;
+    margin: 10px;
 }
 
-#clients .wannaplay {
-    background: yellow;
+div .client_header {
+    height: 18px;
+    margin: 20px 0 0 0;
+    padding: 2px 10px;
+    clear: left;
+    background: #a7a09a;
+    font-weight: bold;
 }
 
-#clients .playing {
-    background: red;
+div .first_header {
+    margin: 0px 0 0 0;    
 }
+
+div .client {
+    height: 50px;
+    margin: 5px 0px 5px 5px;
+    clear: left;
+}
+
+div .client_img {
+    float: left;
+}
+
+div .client_name {
+    float: left;
+    width: 114px;
+    height: 40px;
+/*    background: white;
+*/    padding: 5px 0px 5px 10px;
+}
+
+div .finished {
+    background: lightgreen;
+}
+
+/* --- Board ---- */
 
 #board {
     float: left;
@@ -53,10 +139,6 @@ h1 {
 #board table {
     width: 100%;
     height: 100%;
-    margin:0;
-    padding:0;
-    border-collapse: collapse;
-    border-spacing: 0;
 }
 
 .color0 {
@@ -82,3 +164,25 @@ h1 {
     background: #FFF;
 }
 
+/* -- Humanized message -- */
+
+div.humanized-message{
+    position: absolute;
+    text-align: center;
+    width: 70%;
+    min-height: 20px;
+    _height: 20px;
+    background: #000;
+    opacity: 0.8;       
+    -moz-opacity: 0.8; 
+    filter:alpha(opacity=80); 
+    color: #fff;
+    z-index: 100000;
+    padding: 20px;
+    font-size: 30px;
+    visibility: hidden;
+    -moz-border-radius:10px;
+    -webkit-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+}
