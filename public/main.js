@@ -21,7 +21,7 @@ socket.on('message', function(msg){
             setTimeout(function() { $(window).humanMsg({message:"Steady!", autoHide:500 });}, 2000);
             setTimeout(function() { $(window).humanMsg({message:"Go!", autoHide:500 });}, 3000);
         }
-        if (state == "Finished") {
+        if (state == "Finished" && board) {
             var res = "";
             for (var i = 0; i < board.player_ids.length; i++) {
                 var id = board.player_ids[i];

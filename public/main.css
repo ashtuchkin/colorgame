@@ -58,14 +58,14 @@ body {
 }
 
 #wrap {
-    width: 960px; 
+    width: 950px; 
     margin: 0px auto; 
 }
 
 #leftcolumn {
     float: left;
     width: 200px; 
-    height: 760px;
+    height: 750px;
     background: lightgray;
     overflow: auto;
 }
@@ -131,9 +131,14 @@ div .finished {
 
 #board {
     float: left;
-    width: 760px;
-    height: 760px;
+    width: 750px;
+    height: 750px;
     background: white;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 
 #board table {
@@ -142,22 +147,22 @@ div .finished {
 }
 
 .color0 {
-    background: #00F;
+    background: url(boxes2.png) 0px 0px;
 }
 .color1 {
-    background: #0F0;
+    background: url(boxes2.png) 0px -25px;
 }
 .color2 {
-    background: #F00;
+    background: url(boxes2.png) 0px -50px;
 }
 .color3 {
-    background: #0FF;
+    background: url(boxes2.png) 0px -75px;
 }
 .color4 {
-    background: #F0F;
+    background: url(boxes2.png) 0px -100px;
 }
 .color5 {
-    background: #FF0;
+    background: url(boxes2.png) 0px -125px;
 }
 
 .highlight {
