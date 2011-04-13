@@ -1,35 +1,30 @@
-var express = require('express'),
+// This is the main server module of our game.
+
+var config = require('./config'),
+    express = require('express'),
     app = express.createServer(),
     util = require('util'),
     io = require('socket.io'),
     sessions = require('cookie-sessions'),
-    fb = require('facebook-js'),
-    appId = "190439364333692", 
-    appSecret = "cbd3a5731d2a895592227df2f8232cdf",
-//    appScope = "email,offline_access,publish_stream",
-    appScope = "",
- appCallback = "http://colorgame.ashtuchkin.cloud9ide.com/auth",
-    facebookClient = require('facebook-js')(appId, appSecret),
+    facebookClient = require('facebook-js')(config.appId, config.appSecret),
     Board = require('./public/board.js');
 
 app.use(express.logger());
 app.use(express.static("./public"));
 app.use(express.cookieParser());
 app.use(express.bodyParser());
-app.use(sessions({secret: 'Secret!!'}));
-var socket = io.listen(app);
+app.use(sessions({secret: config.cookieSecret}));
 
 // We use templating engine "ejs" with templates extension ".html"
 app.register('.html', require ('ejs'));
 app.set('view engine', 'html'); // default extension to look for
 app.set('view options', { layout: false });
 
-
 app.get('/', function(req, res) {
     var locals = { userid: false, username: '', auth_url:'' };
     
     if( !req.session || !req.session.token ) {
-        locals.auth_url = facebookClient.getAuthorizeUrl({ client_id: appId, redirect_uri: appCallback, scope: appScope });
+        locals.auth_url = facebookClient.getAuthorizeUrl({ client_id: config.appId, redirect_uri: config.siteUrl + "/auth", scope: config.appScope });
         
     } else {
         locals.userid = req.session.userid;
@@ -40,8 +35,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/auth', function(req, res) {
+    if (!req.param('code'))
+        return res.redirect("/");
+
     facebookClient.getAccessToken({
-        redirect_uri: appCallback, 
+        redirect_uri: config.siteUrl + "/auth", 
         code: req.param('code')}, 
             function (error, token) {
                 facebookClient.apiCall("GET", "/me", {access_token: token.access_token}, function(err, data) {
@@ -61,24 +59,20 @@ app.get('/logout', function(req, res) {
 });
 
 
-var settings = {
-    width: 30,
-    height: 30,
-    colors: 6
-};
-
 var curState = "Idle";
 var board = null;
 var clients = {};
 var anonymousCount = 0;
 var lastStateChange = new Date();
 
+var socket = io.listen(app);
+
 socket.on('connection', function(client){
     var session = null, 
         userid = null,
         cur_client = null;
     if (client.request)
-        session = sessions.readSession('_node', 'Secret!!', 1000*60*60*24, client.request);
+        session = sessions.readSession('_node', config.cookieSecret, 1000*60*60*24, client.request);
     if (session) {
         userid = session.userid;
         if (!(userid in clients)) {
@@ -163,7 +157,7 @@ setInterval(function() {
             return;
         }
         
-        if (players.length === 4 || (new Date()-lastStateChange) > 5000) {
+        if (players.length === 4 || (new Date()-lastStateChange) > config.waitingForOtherPlayersTimeout) {
             // Start the game. Choose at most 4 players that played long ago.
             players.sort(function(id_a, id_b) {
                 if (clients[id_a].last_played < clients[id_b].last_played) return -1;
@@ -175,8 +169,8 @@ setInterval(function() {
                 players.splice(4, players.length);
             
             // Create the board.
-            settings.player_ids = players;
-            board = new Board(settings);
+            config.gameSettings.player_ids = players;
+            board = new Board(config.gameSettings);
             var date = new Date();
             for (var i = 0; i < players.length; i++) {
                 clients[players[i]].playing = true;
@@ -188,7 +182,7 @@ setInterval(function() {
             socket.broadcast({type:'state', state:curState, board:board, clients:clients});
         }
     } else if (curState == "Ready") {
-        if ((new Date() - lastStateChange) > 3000) {
+        if ((new Date() - lastStateChange) > config.readyTimeout) {
             curState = "Playing";
             lastStateChange = new Date();
             socket.broadcast({type:'state', state:curState});
@@ -202,13 +196,13 @@ setInterval(function() {
         for (var id in board.players)
             sum += board.players[id].count;
         
-        if ((new Date() - lastStateChange) > 60000 || !players_ok || sum == board.height*board.width) {
+        if ((new Date() - lastStateChange) > config.endGameOnIdleTimeout || !players_ok || sum == board.height*board.width) {
             curState = "Finished";
             lastStateChange = new Date();
             socket.broadcast({type:'state', state:curState });
         }
     } else if (curState == "Finished") {
-        if ((new Date() - lastStateChange) > 5000) {
+        if ((new Date() - lastStateChange) > config.finishTimeout) {
             curState = "Idle";
             board = null;
             for (var id in clients)
@@ -220,12 +214,12 @@ setInterval(function() {
         }
     }
 
-}, 1000);
+}, config.checkInterval);
 
 
 // Listen for the requests.
 if (process.env.C9_PORT)
     app.listen(process.env.C9_PORT);
 else
-    app.listen(80);
+    app.listen(config.listenPort);
 

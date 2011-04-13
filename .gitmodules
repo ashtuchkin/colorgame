@@ -13,18 +13,9 @@
 [submodule "node_modules/ejs"]
 	path = node_modules/ejs
 	url = git://github.com/visionmedia/ejs.git
-[submodule "node_modules/now"]
-	path = node_modules/now
-	url = git://github.com/Flotype/now.git
 [submodule "node_modules/socket.io"]
 	path = node_modules/socket.io
 	url = git://github.com/LearnBoost/Socket.IO-node.git
-[submodule "node_modules/node-proxy"]
-	path = node_modules/node-proxy
-	url = git://github.com/samshull/node-proxy.git
-[submodule "node_modules/connect-auth"]
-	path = node_modules/connect-auth
-	url = git://github.com/ciaranj/connect-auth.git
 [submodule "node_modules/oauth"]
 	path = node_modules/oauth
 	url = git://github.com/ciaranj/node-oauth.git
