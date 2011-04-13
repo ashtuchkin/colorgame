@@ -1,6 +1,9 @@
 # Ignore Cloud9 temp files.
 .nfs????
+
+# Ignore gedit temp files.
 *~
 
 # Ignore local changes to config.js
 config.js
+

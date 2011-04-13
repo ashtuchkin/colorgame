@@ -19,7 +19,7 @@ Technologies
 Installation
 ------------
 1. Clone this repo
-2. Edit config.js (especially, siteUrl & appId/appSecret)
+2. Copy config.js.sample to config.js and edit it. (especially, siteUrl & appId/appSecret)
 3. Run it: node index.js
 
 Even more convenient is to use [Cloud9 Ide](http://c9.io/).
