@@ -68,7 +68,8 @@ function InitBoard(options) {
 
     if (options) {
         board = new Board(options);
-    
+
+        // Create table itself.
         var s = "<table>";
         for (var y = 0; y < board.height; y++) {
             s += "<tr>";
@@ -77,7 +78,7 @@ function InitBoard(options) {
             s += "</tr>";
         }
         s += "</table>";
-    
+
         $("#board").append(s).click(function(ev) {
             if (userid && clients[userid] && clients[userid].playing && state == "Playing") {
                 var $target = $(ev.target);
@@ -88,7 +89,15 @@ function InitBoard(options) {
                 }
             }
         });
-    
+        
+        // Create avatars.
+        $("#board").css("position", "relative");
+        var pl_pos = ["top:0px; left:0px", "bottom:0px; right:0px", "top:0px; right:0px", "bottom:0px; left:0px"];
+        for (var i = 0; i < board.player_ids.length; i++)
+            $("#board").append('<div class="player'+i+'" style="position:absolute; height:25px; width:25px; '+pl_pos[i]+'">'+
+                '<img src="https://graph.facebook.com/'+board.player_ids[i]+'/picture"/ width=25 height=25 >'+
+                '</div>');
+
         PaintBoard();
     }
 }

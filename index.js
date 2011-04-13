@@ -202,7 +202,7 @@ setInterval(function() {
         for (var id in board.players)
             sum += board.players[id].count;
         
-        if ((new Date() - lastStateChange) > 30000 || !players_ok || sum == board.height*board.width) {
+        if ((new Date() - lastStateChange) > 60000 || !players_ok || sum == board.height*board.width) {
             curState = "Finished";
             lastStateChange = new Date();
             socket.broadcast({type:'state', state:curState });
