@@ -126,6 +126,21 @@ Board.prototype.move = function(player_id, x, y) {
     return {success:true, changed: board_flag, new_count: count};
 }
 
+Board.prototype.isFinished = function() {
+    var colors_found = {};
+    
+    for (var y = 0; y < this.height; y++)
+        for (var x = 0; x < this.width; x++)
+            colors_found[this.board[y][x]] = true;
+    
+    var ncolors = 0;
+    for (var i = 0; i < this.colors; i++)
+        if (colors_found[i])
+            ncolors++;
+    
+    return ncolors == this.player_ids.length;
+}
+
 // Make this module accessible from node.js.
 try {
     module.exports = Board;

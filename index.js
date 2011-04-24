@@ -192,11 +192,8 @@ setInterval(function() {
         for (var id in clients)
             if (clients[id].playing && clients[id].wannaplay)
                 players_ok = true;  // If at least one player wants to play.
-        var sum = 0;
-        for (var id in board.players)
-            sum += board.players[id].count;
         
-        if ((new Date() - lastStateChange) > config.endGameOnIdleTimeout || !players_ok || sum == board.height*board.width) {
+        if ((new Date() - lastStateChange) > config.endGameOnIdleTimeout || !players_ok || board.isFinished()) {
             curState = "Finished";
             lastStateChange = new Date();
             socket.broadcast({type:'state', state:curState });
